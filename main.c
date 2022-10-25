@@ -147,6 +147,22 @@ void display7SEG(int num){
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int timer0_counter = 0;
+int timer0_flag = 0;
+int TIMER_CYCLE = 10;
+
+void setTimer0(int duration) {
+	timer0_counter = duration / TIMER_CYCLE;
+	timer0_flag = 0;
+}
+void timer_run() {
+	if (timer0_counter > 0) {
+		timer0_counter--;
+		if (timer0_counter == 0) {
+			timer0_flag = 1;
+		}
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -234,7 +250,7 @@ int main(void)
   HAL_GPIO_TogglePin ( EN1_GPIO_Port , EN1_Pin ) ;
   HAL_GPIO_TogglePin ( EN2_GPIO_Port , EN2_Pin ) ;
   HAL_GPIO_TogglePin ( EN3_GPIO_Port , EN3_Pin ) ;
-
+  setTimer0(1000);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -253,7 +269,10 @@ int main(void)
 		  hour=0;
 	  }
 	  updateClockBuffer();
-	  HAL_Delay(1000);
+	  if (timer0_flag == 1) {
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  setTimer0(2000);
+	  }
   }
   /* USER CODE END 3 */
 }

@@ -1,0 +1,10 @@
+Report 1: if in line 1 of the code above is miss, what happens after that and why?
+	Without  setTimer0(1000), timer0_counter and timer0_flag is initially 0. Therefore the if-condition inside timer_run() will never be true
+	and timer0_flag will never be changed to 1. Because of that, LED_RED will never be toggled in the if-condition inside while(1)
+Report 2: if in line 1 of the code above is changed to setTimer0(1), what happens after
+that and why?
+	With any value of duration less than TIMER_CYCLE, timer0_counter will be 0. Therefore the if-condition inside timer_run() will never be true
+	and timer0_flag will never be changed to 1. Because of that, LED_RED will never be toggled in the if-condition inside while(1)
+Report 3: if in line 1 of the code above is changed to setTimer0(10), what is changed compared to 2 first questions and why?
+	With setTimer(0), timer0_counter is 1. After the if-condition inside timer_run() timer0_counter is 0 and timer0_flag is changed to 1.
+	Therefore LED_RED will be toggled inside the if-condition
