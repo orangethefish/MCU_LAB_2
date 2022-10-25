@@ -219,13 +219,13 @@ int main(void)
 	  led_buffer[2] = minute / 10;
 	  led_buffer[3] = minute % 10;
 	  update7SEG(0);
-	  HAL_Delay(500);
+	  HAL_Delay(50);
 	  update7SEG(1);
 	  HAL_Delay(500);
 	  update7SEG(2);
-	  HAL_Delay(500);
+	  HAL_Delay(50);
 	  update7SEG(3);
-	  HAL_Delay(500);
+	  HAL_Delay(50);
   }
   ////
   HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin ) ;
