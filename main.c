@@ -403,7 +403,7 @@ static void MX_GPIO_Init(void)
 int counter1 = 100; ///for 7seg
 int counter2 = 100; ///for led
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
-
+	timer_run();
 }
 /* USER CODE END 4 */
 
