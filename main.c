@@ -185,6 +185,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //turn off all pin
+  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin ) ;
+  HAL_GPIO_TogglePin ( DOT_GPIO_Port, DOT_Pin);
+  HAL_GPIO_TogglePin ( EN0_GPIO_Port , EN0_Pin ) ;
+  HAL_GPIO_TogglePin ( EN1_GPIO_Port , EN1_Pin ) ;
+  HAL_GPIO_TogglePin ( EN2_GPIO_Port , EN2_Pin ) ;
+  HAL_GPIO_TogglePin ( EN3_GPIO_Port , EN3_Pin ) ;
   while (1)
   {
     /* USER CODE END WHILE */
