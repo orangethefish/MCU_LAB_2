@@ -234,7 +234,6 @@ int main(void)
 	  led_buffer[1] = hour % 10;
 	  led_buffer[2] = minute / 10;
 	  led_buffer[3] = minute % 10;
-
   }
   ////
   HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin ) ;
@@ -243,29 +242,37 @@ int main(void)
   HAL_GPIO_TogglePin ( EN1_GPIO_Port , EN1_Pin ) ;
   HAL_GPIO_TogglePin ( EN2_GPIO_Port , EN2_Pin ) ;
   HAL_GPIO_TogglePin ( EN3_GPIO_Port , EN3_Pin ) ;
-  setTimer0(1000);
+  setTimer0(500);
+  int halfsec_counter=0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  second++;
-	  if(second>=60) {
-		  second=0;
-		  minute++;
+	  if(timer0_flag==1){
+		  setTimer0(500);
+		  halfsec_counter++;
+		  if(halfsec_counter==2){
+			  second++;
+			  if(second>=60) {
+				  second=0;
+				  minute++;
+			  }
+			  if(minute>=60){
+				  minute=0;
+				  hour++;
+			  }
+			  if(hour>=24){
+				  hour=0;
+			  }
+			  updateClockBuffer();
+			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+			  halfsec_counter=0;
+		  }
+		  update7SEG(index_led++); //update every 0.5 sec
 	  }
-	  if(minute>=60){
-		  minute=0;
-		  hour++;
-	  }
-	  if(hour>=24){
-		  hour=0;
-	  }
-	  updateClockBuffer();
-	  if (timer0_flag == 1) {
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-		  setTimer0(1000);
-	  }
+	  if(index_led>3) index_led=0; //reset index_led
   }
   /* USER CODE END 3 */
 }
